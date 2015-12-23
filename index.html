@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Forecast - GDP per capita</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Forecast - GDP per capita">
+  <meta name="author" content="aadami">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Forecast - GDP per capita</h1>
+    <h2></h2>
+    <p>aadami<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article data-timings="">
+    <p class=''>In this project, we use historical data for GDP per capita obtained from the World Bank website (<a href="http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators">http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators</a>). Using these data, which cover the period from 1960 to 2014, we made the forecast of the period from 2015 to 2020, applying the &#39;forecast&#39; package available in R software.</p>
+
+<p class=''>The method was implemented and shared through a Web application, available at <a href="https://albertoadami71.shinyapps.io/FORECASTGDP">https://albertoadami71.shinyapps.io/FORECASTGDP</a>.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Method</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>We illustrate our method using the data of the Brazilian GDP per capita, expressed in current US$. Thus, we have the following vector &#39;brazil_gdp&#39;:</p>
+
+<pre><code>##  [1]   209.1988   203.9552   258.7577   290.0583   259.4670   259.0042
+##  [7]   312.8819   344.2945   371.3931   400.2629   440.9931   500.0341
+## [13]   580.4885   767.3099   993.2896  1140.9011  1374.5358  1548.3983
+## [19]  1723.1372  1885.0911  1923.2826  2106.6790  2199.7020  1551.7730
+## [25]  1560.4558  1629.2649  1919.8648  2064.6540  2276.2406  2879.4999
+## [31]  3071.6280  2663.7864  2513.6379  2777.3482  3482.5298  4827.3276
+## [37]  5163.2658  5279.1505  5083.6265  3476.0808  3738.7194  3136.4967
+## [43]  2810.2308  3044.2550  3597.9788  4733.1835  5809.1179  7241.0790
+## [49]  8700.6133  8462.3891 11124.0769 13042.1977 11922.7047 11711.0633
+## [55] 11384.6181
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <article data-timings="">
+    <p>In the sequel we apply the exponential smoothing state space model (ets) to calculate the GDP predictions for the next six years (2015-2020).</p>
+
+<pre><code class="r">library(forecast)
+tsbr = ts(brazil_gdp)
+etsbr =ets(tsbr,model=&quot;AAN&quot;)
+fcast = forecast(etsbr,h=6) 
+print(fcast$mean)
+</code></pre>
+
+<p>Time Series:
+Start = 56 
+End = 61 
+Frequency = 1 
+[1] 11297.80 11228.32 11172.74 11128.27 11092.70 11064.24</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <article data-timings="">
+    <p>Finally, we plot a graphic with historical data (blue) followed by the forecasts (grey). </p>
+
+<p><img src="assets/fig/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3"> 
+Conclusion: In this work, we found that the R software, besides being an excellent tool for data analysis, also allows the sharing of Web applications and the preparation of presentation slides.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Summary'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Method'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='NA'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='NA'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
